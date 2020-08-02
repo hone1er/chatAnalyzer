@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block main %}
+<div class="container">
+    <h1>Analyze your chat in 3 steps</h1>
+    <h2>steps:</h2>
+    <ul>
+        <li>export your WhatsApp chat log</li>
+        <li>upload the chat log here</li>
+        <li>view chat analysis</li>
+    </ul>
+</div>
+<div class="container">
+    <div class="container-fluid dashboard">
+        <div class="container-fluid tables">
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form action="/upload" method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+
+    {% for key, value in words.items() %}
+    <caption>{{key}}</caption>
+    <table class="table table-sm table-responsive display"
+    style="width:100%"
+    data-toggle="table"
+    data-height="460"
+    data-pagination="true"
+    data-sort-class="table-active"
+    data-sortable="true"
+    data-page-list="[10, 25, 50, 100, 200, All]">
+        
+          <tbody>
+        {% for k, v in value.items()%}
+            <tr>
+                <td>{{k}}</td>
+                <td>{{v}}</td>
+            </tr>
+            {% endfor %}  
+        </tbody>
+        </table>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
