@@ -112,8 +112,8 @@ def analyze_chat(dataframe):
                     new_word = ''.join([i.lower() for i in word if i.isalpha()])
                     if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
                             
-                        word = word.rstrip('"\n().,!?#@&*$').split(".")[0].lower()
-                        word_counts[name].append(word)
+                        new_word = new_word.rstrip('"\n().,!?#@&*$').split(".")[0].lower()
+                        word_counts[name].append(new_word)
                     else:
                         print(word)
             except IndexError:
