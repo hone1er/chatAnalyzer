@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, Response, redirect, flash, ur
 import os
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from time import sleep
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/static/files"
 ALLOWED_EXTENSIONS = {'txt'}
@@ -55,10 +56,12 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            sleep(3)
+            get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             words = analyze_chat("test_chat.csv")
             print(words)
-            return render_template("home.html", words=dict(words))
+            return render_template("home.html", words=words)
 
     return '''
     <!doctype html>
@@ -95,7 +98,7 @@ def get_users(file):
 
 
 def analyze_chat(dataframe):
-    df = pd.read_csv(dataframe)
+    df = pd.read_csv(dataframe, error_bad_lines=False)
     df = df.transpose().dropna()
     word_counts = {}
     for i in range(len(df.columns)):
@@ -107,7 +110,7 @@ def analyze_chat(dataframe):
                 words = str(res[j]).split(f" {name}: ")[1].split(" ")
                 for word in words:
                     new_word = ''.join([i.lower() for i in word if i.isalpha()])
-                    if new_word.lower() not in remove_words and len(new_word) >= 2:
+                    if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
                             
                         word = word.rstrip('"\n().,!?#@&*$').split(".")[0].lower()
                         word_counts[name].append(word)
