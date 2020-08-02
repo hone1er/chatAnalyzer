@@ -9,7 +9,6 @@ from time import sleep
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/static/files"
 ALLOWED_EXTENSIONS = {'txt'}
 path = os.getcwd()
-print(os.path.dirname(os.path.abspath(__file__)) + "/static/files")
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -56,10 +55,8 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            sleep(1)
-            get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            words = analyze_chat(os.path.join(app.config['UPLOAD_FOLDER'],"test_chat.csv"))
-            print(words)
+            
+            words = get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template("home.html", words=words)
 
     return '''
@@ -73,7 +70,7 @@ def upload_file():
     '''
 
 def get_users(file):
-    # {user: [messages], user: [messages]}
+    # {user: [messages, broken, into, words], user: [messages]}
     # if user, add message to array, else add username with empty array
     chat = {}
     last_name = None
@@ -81,46 +78,29 @@ def get_users(file):
     with open(file, encoding="utf8") as f:
         lines = f.readlines()
         for line in lines:
-            res = re.search(expression, str(line))
-            if res:
-                last_name = res
+            name = re.search(expression, str(line))
+            if name:
+                last_name = name
             else:
-                res = last_name
-            if res and line:
-                if res.group(0) in chat:
-                    chat[res.group(0)].append(line)
-                else:
-                    chat[res.group(0)] = [line]
-        pd.DataFrame.from_dict(chat, orient="index").to_csv(os.path.join(app.config['UPLOAD_FOLDER'],"test_chat.csv"))
-
-
-
-
-def analyze_chat(dataframe):
-    df = pd.read_csv(dataframe, error_bad_lines=False)
-    df = df.transpose().dropna()
-    word_counts = {}
-    for i in range(len(df.columns)):
-        res = [x for x in df[i][1:]]
-        name = df[i][0]
-        word_counts[name] = []
-        for j in range(len(res)):
-            try:
-                words = str(res[j]).split(f" {name}: ")[1].split(" ")
-                for word in words:
-                    new_word = ''.join([i.lower() for i in word if i.isalpha()])
-                    if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
-                            
-                        new_word = new_word.rstrip('"\n().,!?#@&*$').split(".")[0].lower()
-                        word_counts[name].append(new_word)
-                    else:
-                        print(word)
-            except IndexError:
-                pass
+                name = last_name
+            if name and line:
+                try:
+                    words = str(line).split(f" {name.group()}: ")[1].split(" ")
+                    for word in words:
+                        new_word = ''.join([i.lower() for i in word if i.isalpha()])
+                        if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
+                            if name.group(0) in chat:
+                                chat[name.group(0)].append(new_word)
+                            else:
+                                chat[name.group(0)] = [new_word]
+                except IndexError:
+                    pass
     dfs = {}
-    for key, value in word_counts.items():
-        dfs[key] = pd.DataFrame.from_dict(word_counts, orient="index").transpose().dropna()[key].value_counts()
+    for key, value in chat.items():
+        dfs[key] = pd.DataFrame.from_dict(chat, orient="index").transpose().dropna()[key].value_counts()
     return dfs
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
