@@ -1,6 +1,9 @@
 body {
 
 }
+table.dataTable tbody tr {
+  background-color: unset !important;
+}
 table.dataTable thead .sorting_asc, .sorting_desc, .sorting {
   background-image: none !important;
 }
