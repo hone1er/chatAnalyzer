@@ -59,7 +59,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             sleep(3)
             get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            words = analyze_chat("test_chat.csv")
+            words = analyze_chat(os.path.join(app.config['UPLOAD_FOLDER'],"test_chat.csv"))
             print(words)
             return render_template("home.html", words=words)
 
@@ -92,7 +92,7 @@ def get_users(file):
                     chat[res.group(0)].append(line)
                 else:
                     chat[res.group(0)] = [line]
-        pd.DataFrame.from_dict(chat, orient="index").to_csv("test_chat.csv")
+        pd.DataFrame.from_dict(chat, orient="index").to_csv(os.path.join(app.config['UPLOAD_FOLDER'],"test_chat.csv"))
 
 
 
