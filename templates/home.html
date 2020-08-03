@@ -28,7 +28,10 @@
     data-sort-class="table-active"
     data-sortable="true"
     data-page-list="[10, 25, 50, 100, 200, All]">
-        
+        <thead>
+            <tr><th data-field="word" data-sortable="true">word</th>
+            <th data-field="instances" data-sortable="true">#</th></tr>
+        </thead>
           <tbody>
         {% for k, v in value.items()%}
             <tr>

@@ -70,7 +70,7 @@ def upload_file():
     '''
 
 def get_users(file):
-    # {user: [messages, broken, into, words], user: [messages]}
+    # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
     # if user, add message to array, else add username with empty array
     chat = {}
     last_name = None
@@ -78,7 +78,6 @@ def get_users(file):
     with open(file, encoding="utf8") as f:
         lines = f.readlines()
         for line in lines:
-            print(line)
             name = re.search(expression, str(line))
             if name:
                 last_name = name
@@ -91,15 +90,16 @@ def get_users(file):
                         new_word = ''.join([i.lower() for i in word if i.isalpha()])
                         if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
                             if name.group(0) in chat:
-                                chat[name.group(0)].append(new_word)
+                                if new_word in chat[name.group(0)]:
+                                    chat[name.group(0)][new_word] += 1
+                                else:
+                                    chat[name.group(0)][new_word] = 1
                             else:
-                                chat[name.group(0)] = [new_word]
+                                chat[name.group(0)] = {new_word: 1}
                 except IndexError:
                     pass
-    dfs = {}
-    for key, value in chat.items():
-        dfs[key] = pd.DataFrame.from_dict(chat, orient="index").transpose().dropna()[key].value_counts()
-    return dfs
+
+    return chat
 
 
 
