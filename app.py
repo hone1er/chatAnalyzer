@@ -78,6 +78,7 @@ def get_users(file):
     with open(file, encoding="utf8") as f:
         lines = f.readlines()
         for line in lines:
+            print(line)
             name = re.search(expression, str(line))
             if name:
                 last_name = name
