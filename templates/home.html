@@ -2,25 +2,27 @@
 <div class="container">
     <h1>Analyze your chat in 3 steps</h1>
     <h2>steps:</h2>
-    <ul>
-        <li>export your WhatsApp chat log</li>
+    <ol>
+        <li>export your WhatsApp chat log - without media</li>
         <li>upload the chat log here</li>
         <li>view chat analysis</li>
-    </ul>
-</div>
-<div class="container">
-    <div class="container-fluid dashboard">
-        <div class="container-fluid tables">
+    </ol>
     <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form action="/upload" method=post enctype=multipart/form-data>
-        <input type=file name=file>
-        <input type=submit value=Upload>
-    </form>
+        <h1>Upload new File</h1>
+        <form action="/upload" method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+        </form>
+</div>
+<div class="">
+    <div class="dashboard">
+        
+        <div class="tables">
 
     {% for key, value in words.items() %}
+    <div>
     <h3>{{key}}</h3>
-    <table class="table table-sm table-responsive display"
+    <table class="display compact"
     style="width:fit-content"
     data-toggle="table"
     data-height="460"
@@ -41,6 +43,7 @@
             {% endfor %}  
         </tbody>
         </table>
+    </div>
 {% endfor %}
 </div>
 </div>
