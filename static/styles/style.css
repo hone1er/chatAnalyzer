@@ -160,6 +160,21 @@ min-height: 975px;
   justify-content: space-evenly;
   
 }
+
+#animation {
+  width: 250px;
+}
+
+.container {
+  text-align: center;
+}
+.steps, .ordered-list{
+  text-align: left;
+}
+
+div.container {
+  width: 80%;
+}
 @media (max-width: 768px) {
     .outer {
         height: auto;

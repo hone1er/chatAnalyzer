@@ -1,8 +1,8 @@
 {% extends "layout.html" %} {% block main %}
 <div class="container">
     <h1>Analyze your chat in 3 steps</h1>
-    <h2>steps:</h2>
-    <ol>
+    <h2 class="steps">steps:</h2>
+    <ol class="ordered-list">
         <li>export your WhatsApp chat log - without media</li>
         <li>upload the chat log here</li>
         <li>view chat analysis</li>
@@ -20,17 +20,17 @@
         <div class="tables">
 
     {% for key, value in words.items() %}
-    <div>
+    <div class="outer-table">
     <h3>{{key}}</h3>
-    <table class="display compact"
-    style="width:fit-content"
+    <table class="table table-sm table-responsive"
+    style="width:100%"
     data-toggle="table"
     data-height="460"
     data-pagination="true"
     data-sort-class="table-active"
     data-sortable="true"
     data-page-list="[10, 25, 50, 100, 200, All]">
-        <thead>
+        <thead class="thead-dark">
             <tr><th data-field="word" data-sortable="true">word</th>
             <th data-field="instances" data-sortable="true">#</th></tr>
         </thead>

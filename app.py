@@ -5,6 +5,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from time import sleep
+import zipfile
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/static/files"
 ALLOWED_EXTENSIONS = {'txt'}
@@ -59,15 +60,7 @@ def upload_file():
             words = get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template("home.html", words=words)
 
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+    return render_template("error.html")
 
 def get_users(file):
     # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
@@ -88,6 +81,7 @@ def get_users(file):
                     words = str(line).split(f" {name.group()}: ")[1].split(" ")
                     for word in words:
                         new_word = ''.join([i.lower() for i in word if i.isalpha()])
+                        new_word = new_word.replace('/[!\.,:;\?]/g', '')
                         if new_word.lower() not in remove_words and 32 >= len(new_word) >= 1 :
                             if name.group(0) in chat:
                                 if new_word in chat[name.group(0)]:
