@@ -8,7 +8,7 @@ from time import sleep
 import zipfile
 
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/static/files"
-ALLOWED_EXTENSIONS = {'txt'}
+ALLOWED_EXTENSIONS = {'txt', 'zip'}
 path = os.getcwd()
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -40,6 +40,21 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def is_zipped(file):
+    return file.filename.rsplit('.', 1)[1].lower() == "zip"
+
+
+def unzip_file(file):
+    if file.filename.rsplit('.', 1)[1].lower() != "zip":
+        return
+    
+    if file.filename.rsplit('.', 1)[1].lower() == "zip":
+        filename = secure_filename(file.filename)
+        with zipfile.ZipFile(os.path.join(app.config['UPLOAD_FOLDER'], filename), "r") as zipObj:
+            zipObj.extractall(app.config['UPLOAD_FOLDER'])
+            print(filename)
+        return zipObj.namelist()[0]
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -54,8 +69,12 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            if is_zipped(file):
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], "_".join(file.filename.split(" "))))
+                filename = unzip_file(file)
+            else:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             
             words = get_users(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template("home.html", words=words)
