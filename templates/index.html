@@ -1,54 +1,60 @@
 {% extends "layout.html" %} {% block header %}
 <div class="landing">
-<div class="outer hero-container">
-<div class="header">
-  <div class="welcome">
-    <h1 class="welcome-h1">WhatsApp analysis</h1>
-    <p class="welcome-description">
-      Upload your WhatsApp conversations to receive a detailed text analysis.
-      Includes a list of the top 1000 words used by each person in the
-      conversation.
-    </p>
-    <div class="blue-btn">
-        <a class="first-link" href="{{ url_for('home') }}">
-          Get Started
-        </a>
-        <a href="{{ url_for('home') }}">
-        Learn More
-        </a>
+  <div class="outer hero-container">
+    <div class="header">
+      <div class="welcome">
+        <h1 class="welcome-h1">WhatsApp analysis</h1>
+        <p class="welcome-description">
+          Upload your WhatsApp conversations to receive a detailed text
+          analysis. Includes a list of the top 1000 words used by each person in
+          the conversation.
+        </p>
+        <div class="blue-btn">
+          <a class="first-link" href="{{ url_for('home') }}">
+            Get Started
+          </a>
+          <a href="{{ url_for('home') }}">
+            Learn More
+          </a>
+        </div>
       </div>
-  </div>
-  <img class="undraw" src={{ url_for('static', filename = 'images/chats.svg') }}
-  title="chat" />
-</div>
-</div>
-<div class="card-div">
-<div class="card-deck">
-    <div class="card">
-      <img class="card-img-top small" src={{ url_for('static', filename = 'images/Data_Analytic.svg') }} alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Analyze Conversations</h5>
-        <p class="card-text">Get a list of the most used words in your chats.</p>
-      </div>
-     
-    </div>
-    <div class="card">
-      <img class="card-img-top" src={{ url_for('static', filename = 'images/Cloud_Computing.svg') }} alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Save Your Analysis</h5>
-        <p class="card-text">Save your analysis and compare with previously saved conversations.</p>
-      </div>
-     
-    </div>
-    <div class="card">
-      <img class="card-img-top" src={{ url_for('static', filename = 'images/Teamwork.svg') }} alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Share With Friends</h5>
-        <p class="card-text">Share the results of your analysis with friends</p>
-      </div>
-     
+      <img class="undraw" src={{ url_for('static', filename =
+      'images/chats.svg') }} title="chat" />
     </div>
   </div>
-</div>
+  <div class="card-div">
+    <div class="card-deck">
+      <div class="card">
+        <img class="card-img-top small" src={{ url_for('static', filename =
+        'images/Data_Analytic.svg') }} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Analyze Conversations</h5>
+          <p class="card-text">
+            Get a list of the most used words in your chats.
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src={{ url_for('static', filename =
+        'images/Cloud_Computing.svg') }} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Save Your Analysis</h5>
+          <p class="card-text">
+            Save your analysis and compare with previously saved conversations.
+          </p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img-top" src={{ url_for('static', filename =
+        'images/Teamwork.svg') }} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Share With Friends</h5>
+          <p class="card-text">
+            Share the results of your analysis with friends
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

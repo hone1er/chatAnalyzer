@@ -1,13 +1,13 @@
-$(document).ready(function() {
-    $('table').DataTable( {
-      "pagingType": "simple"
-  } );
-  } );
+$(document).ready(function () {
+  $("table").DataTable({
+    pagingType: "simple",
+  });
+});
 
-  var anim = bodymovin.loadAnimation({
+var anim = bodymovin.loadAnimation({
   container: document.getElementById("animation"),
   path: "Animation.json",
-  renderer: 'svg',
+  renderer: "svg",
   loop: true,
   autoplay: true,
 });
