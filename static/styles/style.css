@@ -1,4 +1,5 @@
 body {
+  font-family: Roboto;
 }
 
 table.dataTable thead .sorting_asc,
@@ -19,7 +20,7 @@ th {
   font-size: 0.825rem;
 }
 .dataTables_wrapper {
-  margin: 64px 0 128px;
+  margin: 0;
 }
 
 .table {
@@ -27,9 +28,7 @@ th {
   display: inline-block;
   max-height: 400px;
 }
-tr:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-}
+
 .span3 {
   height: 100px !important;
   overflow: scroll;
@@ -187,6 +186,9 @@ tr:nth-of-type(odd) {
   flex-direction: row;
   flex-flow: wrap;
   justify-content: space-evenly;
+  padding-top: 100px;
+  background-color: #f8f8f8;
+  
 }
 
 #animation {
@@ -196,14 +198,45 @@ tr:nth-of-type(odd) {
 .container {
   text-align: center;
 }
-.steps,
+
+.steps-container {
+  padding: 128px 0;
+  margin: 0;
+  width:100%;
+  min-width: 100%;
+  background: rgb(59,88,144);
+  background: linear-gradient(90deg, rgba(59,88,144,1) 0%, rgba(0,61,96,1) 100%);
+}
+
+.steps-container > h1 {
+  color: #f8f8f8;    
+
+}
+.steps {
+  display: flex;
+  justify-content: center;
+}
 .ordered-list {
+  color: #f8f8f8;
   text-align: left;
+  font-size: 1.25rem;
+
 }
 
 div.container {
   width: 80%;
 }
+.upload-container {
+  background: rgb(68,68,68);
+  background: linear-gradient(90deg, rgba(68,68,68,1) 0%, rgba(51,51,51,1) 100%);
+  color: #f8f8f8;
+  width: 100%;
+  min-width: 100%;
+  padding: 64px 0;
+}
+.inner-upload {
+}
+
 @media (max-width: 768px) {
   .outer {
     height: auto;

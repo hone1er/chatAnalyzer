@@ -1,18 +1,23 @@
 {% extends "layout.html" %} {% block main %}
-<div class="container">
-    <h1>Analyze your chat in 3 steps</h1>
-    <h2 class="steps">steps:</h2>
+<div class="container steps-container">
+    <h1>Analyze your chat in 3 steps:</h1>
+    <div class="steps">
     <ol class="ordered-list">
         <li>export your WhatsApp chat log - without media</li>
         <li>upload the chat log here</li>
         <li>view chat analysis</li>
     </ol>
+</div>
+</div>
+<div class="container upload-container">
+    <div class="inner-upload">
     <title>Upload new File</title>
         <h1>Upload new File</h1>
         <form action="/upload" method=post enctype=multipart/form-data>
             <input type=file name=file>
             <input type=submit value=Upload>
         </form>
+    </div>
 </div>
 <div class="">
     <div class="dashboard">
