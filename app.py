@@ -7,7 +7,7 @@ from flask import send_from_directory
 from time import sleep
 import zipfile
 
-UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/static/files"
+UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + "/tmp"
 ALLOWED_EXTENSIONS = {"txt", "zip"}
 path = os.getcwd()
 app = Flask(__name__)
