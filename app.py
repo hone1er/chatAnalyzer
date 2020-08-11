@@ -86,7 +86,7 @@ def upload_file():
                 filename = unzip_file(file)
             else:
                 filename = secure_filename("_".join(file.filename.split(" ")))
-
+                print(filename)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
             words = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
