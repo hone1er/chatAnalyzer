@@ -52,7 +52,7 @@ def unzip_file(file):
     if file.filename.rsplit(".", 1)[1].lower() != "zip":
         return
 
-    if file.filenamechrome.rsplit(".", 1)[1].lower() == "zip":
+    if file.filename.rsplit(".", 1)[1].lower() == "zip":
         filename = secure_filename(file.filename)
         with zipfile.ZipFile(
             os.path.join(app.config["UPLOAD_FOLDER"], filename), "r"
