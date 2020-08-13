@@ -1,7 +1,8 @@
 import re
 import pandas as pd
-from flask import Flask, render_template, request, Response, redirect, flash, url_for
+from flask import Flask, render_template, request, Response, redirect, flash, url_for, jsonify
 import os
+import json
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from time import sleep
@@ -64,6 +65,18 @@ def unzip_file(file):
         return zipObj.namelist()[0]
     return
 
+def message_count_to_trace(messages):
+    traces = []
+    for key, value in messages.items():
+        trace = {
+            "x": [key],
+            "y": [value],
+            "name": key,
+            "type": 'bar'
+            }
+        traces.append(trace)
+    return json.dumps(traces)
+
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():
@@ -91,8 +104,8 @@ def upload_file():
                 print(filename)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
-            words = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            return render_template("home.html", words=words)
+            words, traces = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            return render_template("home.html", words=words, traces=traces)
 
     return render_template("error.html")
 
@@ -101,10 +114,12 @@ def get_users(file):
     # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
     # if user, add message to array, else add username with empty array
     chat = {}
-    last_name = None
+    messages_count = {}
+    
+    last_found_name = None
+    expression = None
     us_expression = r"(?<=\s[A-Z][A-Z]]\s)[^:\]]+"
     international_expression = r"(?<=\d:\d\d\s[-]\s)[^:\]]+"
-    expression = None
     with open(file, encoding="utf8") as f:
         lines = f.readlines()[0:1]
         for line in lines:
@@ -117,15 +132,19 @@ def get_users(file):
         for line in lines:
             name = re.search(expression, str(line))
             if name:
-                last_name = name
+                last_found_name = name
+                if name.group() in messages_count:
+                    messages_count[name.group()] += 1
+                else:
+                    messages_count[name.group()] = 1
             else:
-                name = last_name
+                name = last_found_name
             if name and line:
                 try:
                     words = str(line).split(f" {name.group()}: ")[1].split(" ")
                     for word in words:
                         new_word = "".join([i.lower() for i in word if i.isalpha()])
-                        new_word = new_word.replace("/[!\.,:;\?]/g", "")
+                        new_word = new_word.replace(r"/[!\.,:;\?]/g", "")
                         if (
                             new_word.lower() not in remove_words
                             and 32 >= len(new_word) >= 1
@@ -139,8 +158,8 @@ def get_users(file):
                                 chat[name.group(0)] = {new_word: 1}
                 except IndexError:
                     pass
-
-    return chat
+    print(messages_count)
+    return chat, message_count_to_trace(messages_count)
 
 
 @app.route("/uploads/<filename>")
@@ -156,7 +175,7 @@ def index():
 
 @app.route("/home")
 def home():
-    return render_template("home.html", words={})
+    return render_template("home.html", words={}, traces={})
 
 
 if __name__ == "__main__":

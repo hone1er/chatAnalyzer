@@ -1,4 +1,7 @@
 {% extends "layout.html" %} {% block main %}
+<script>
+    var trace = '{{ traces }}';
+  </script>
 <div class="container steps-container">
     <h1>Analyze your chat in 3 steps:</h1>
     <div class="steps">
@@ -50,6 +53,9 @@
         </table>
     </div>
 {% endfor %}
+</div>
+<div class="container">
+<div data="{{traces}}" id="traces"></div>
 </div>
 </div>
 </div>
