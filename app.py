@@ -37,6 +37,8 @@ remove_words = {
     "lore": True,
     "im": True,
     "pm": True,
+    "multimedia": True,
+    "omitido": True,
 }
 
 
