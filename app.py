@@ -100,9 +100,18 @@ def get_users(file):
     # if user, add message to array, else add username with empty array
     chat = {}
     last_name = None
-    expression = r"(?<=\s[A-Z][A-Z]]\s)[^:\]]+"
+    us_expression = r"(?<=\s[A-Z][A-Z]]\s)[^:\]]+"
+    international_expression = r"(?<=\d:\d\d\s[-]\s)[^:\]]+"
+    expression = None
     with open(file, encoding="utf8") as f:
-        lines = f.readlines()
+        lines = f.readlines()[0:1]
+        for line in lines:
+            if re.search(us_expression, str(line)):
+                expression = us_expression
+            else:
+                expression = international_expression
+    with open(file, encoding="utf8") as f:
+        lines = f.readlines()[1:]
         for line in lines:
             name = re.search(expression, str(line))
             if name:
