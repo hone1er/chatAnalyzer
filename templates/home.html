@@ -22,6 +22,7 @@
         </form>
     </div>
 </div>
+{% if words %}
 <div class="">
     <div class="dashboard">
         
@@ -30,13 +31,14 @@
     {% for key, value in words.items() %}
     <div class="outer-table">
     <h3>{{key}}</h3>
-    <table class="table table-sm table-responsive"
+    <table class="table table-md table-responsive"
     style="width:100%"
     data-toggle="table"
     data-height="460"
-    data-pagination="true"
     data-sort-class="table-active"
     data-sortable="true"
+    data-pagination="true"
+    data-side-pagination="server"
     data-page-list="[10, 25, 50, 100, 200, All]">
         <thead class="thead-dark">
             <tr><th data-field="word" data-sortable="true">word</th>
@@ -57,6 +59,13 @@
 <div class="container">
 <div data="{{traces}}" id="traces"></div>
 </div>
+<div>
+
+    <h4>average words per message: {{average_words}}</h4>
+    <h4>total words per user: {{total_words}}</h4>
+
 </div>
 </div>
+</div>
+{% endif %}
 {% endblock %}

@@ -24,6 +24,7 @@ remove_words = {
     "video": True,
     " ": True,
     "jjjjj": True,
+    "jjajj": True,
     "jajajajajajaja": True,
     "jajajj": True,
     "jaja": True,
@@ -104,8 +105,9 @@ def upload_file():
                 print(filename)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
-            words, traces = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            return render_template("home.html", words=words, traces=traces)
+            words, traces, average_words, total_words = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+
+            return render_template("home.html", words=words, traces=traces, average_words=average_words, total_words=total_words)
 
     return render_template("error.html")
 
@@ -115,7 +117,7 @@ def get_users(file):
     # if user, add message to array, else add username with empty array
     chat = {}
     messages_count = {}
-    
+    message_lengths = {}
     last_found_name = None
     expression = None
     us_expression = r"(?<=\s[A-Z][A-Z]]\s)[^:\]]+"
@@ -129,6 +131,7 @@ def get_users(file):
                 expression = international_expression
     with open(file, encoding="utf8") as f:
         lines = f.readlines()[1:]
+        # Go through each line in the chat and check if it is a new message
         for line in lines:
             name = re.search(expression, str(line))
             if name:
@@ -142,6 +145,10 @@ def get_users(file):
             if name and line:
                 try:
                     words = str(line).split(f" {name.group()}: ")[1].split(" ")
+                    if name.group() in message_lengths:
+                        message_lengths[name.group()].append(len(words))
+                    else:
+                        message_lengths[name.group()] = [len(words)]
                     for word in words:
                         new_word = "".join([i.lower() for i in word if i.isalpha()])
                         new_word = new_word.replace(r"/[!\.,:;\?]/g", "")
@@ -158,14 +165,21 @@ def get_users(file):
                                 chat[name.group(0)] = {new_word: 1}
                 except IndexError:
                     pass
-    print(messages_count)
-    return chat, message_count_to_trace(messages_count)
+    average_words_per_message = message_length_averages(message_lengths)
+    total_words = total_words_per_user(average_words_per_message, messages_count)
+    return chat, message_count_to_trace(messages_count), average_words_per_message, total_words
 
+def total_words_per_user(average_words_per_message, message_count):
+    total_words = {}
+    for user in average_words_per_message.keys():
+        total_words[user] = average_words_per_message[user] * message_count[user]
+    return total_words
 
-@app.route("/uploads/<filename>")
-def uploaded_file(filename):
-    get_users("static/files/" + filename)
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename[:-3] + "csv")
+def message_length_averages(message_lengths_dict):
+    new_dict = {}
+    for key, value in message_lengths_dict.items() :
+        new_dict[key] = sum(value)/len(value)
+    return new_dict
 
 
 @app.route("/")
