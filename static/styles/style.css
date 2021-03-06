@@ -1,5 +1,5 @@
 body {
-  font-family: 'Kalam', cursive;
+  font-family: "Kalam", cursive;
 }
 
 table.dataTable thead .sorting_asc,
@@ -21,6 +21,10 @@ th {
 }
 .dataTables_wrapper {
   margin: 0;
+}
+
+.dashboard > div {
+  margin: 80px auto;
 }
 
 .table {
@@ -135,7 +139,7 @@ th {
 }
 
 form > input {
-  text-transform: lowercase;  
+  text-transform: lowercase;
 }
 .welcome {
   color: #e8e8e8;
@@ -192,7 +196,6 @@ form > input {
   justify-content: space-evenly;
   padding-top: 100px;
   background-color: #f8f8f8;
-  
 }
 
 #animation {
@@ -207,10 +210,14 @@ form > input {
   display: flex;
   padding: 0px !important;
   margin: 0;
-  width:100%;
+  width: 100%;
   min-width: 100%;
-  background: rgb(59,88,144);
-  background: linear-gradient(90deg, rgba(59,88,144,1) 0%, rgba(0,61,96,1) 100%);
+  background: rgb(59, 88, 144);
+  background: linear-gradient(
+    90deg,
+    rgba(59, 88, 144, 1) 0%,
+    rgba(0, 61, 96, 1) 100%
+  );
   color: #f8f8f8;
 }
 
@@ -225,27 +232,42 @@ form > input {
 }
 .steps {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px auto;
 }
 .steps > div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.step-image {
+  clip-path: ellipse(80% 85% at 20% 20%);
+}
+.step-image > a {
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  text-decoration: none;
+  color: #f8f8f8;
+  font-size: 24px;
+}
 .ordered-list {
   color: #f8f8f8;
   text-align: left;
   font-size: 1.25rem;
-
 }
 
 div.container {
   width: 80%;
 }
 .upload-container {
-  background: rgb(68,68,68);
-  background: linear-gradient(90deg, rgba(68,68,68,1) 0%, rgba(51,51,51,1) 100%);
+  background: rgb(68, 68, 68);
+  background: linear-gradient(
+    90deg,
+    rgba(68, 68, 68, 1) 0%,
+    rgba(51, 51, 51, 1) 100%
+  );
   color: #f8f8f8;
   width: 100%;
   min-width: 100%;
@@ -269,6 +291,9 @@ div.container {
 }
 
 @media (max-width: 768px) {
+  .dashboard > div {
+    margin: 60px auto;
+  }
   .outer {
     height: auto;
   }
@@ -296,6 +321,9 @@ div.container {
   }
   .steps-container > div {
     width: 100%;
+  }
+  .step-image {
+    clip-path: ellipse(85% 85% at 20% 20%);
   }
   .stats {
     flex-direction: column;
