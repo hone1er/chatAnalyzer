@@ -1,5 +1,5 @@
 body {
-  font-family: Roboto;
+  font-family: 'Kalam', cursive;
 }
 
 table.dataTable thead .sorting_asc,
@@ -132,6 +132,10 @@ th {
   flex-direction: row-reverse;
   padding: 25px 0;
   max-width: 2200px;
+}
+
+form > input {
+  text-transform: lowercase;  
 }
 .welcome {
   color: #e8e8e8;

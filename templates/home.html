@@ -6,7 +6,7 @@
     <div><img src="{{ url_for('static', filename =
         'images/connected.jpg') }}" alt=""></div>
     <div class="steps">
-    <h1>Analyze your chat in 3 steps:</h1>
+    <h1>analyze your chat in 3 steps:</h1>
     <div >
     <ol class="ordered-list">
         <li>export your WhatsApp chat log - without media</li>
@@ -18,11 +18,11 @@
 </div>
 <div class="container upload-container">
     <div class="inner-upload">
-    <title>Upload new File</title>
-        <h1>Upload new File</h1>
+    <title>upload new File</title>
+        <h1>upload new File</h1>
         <form action="/upload" method=post enctype=multipart/form-data>
             <input type=file name=file>
-            <input type=submit value=Upload>
+            <input type=submit value=upload>
         </form>
     </div>
 </div>
@@ -74,7 +74,7 @@
 <div class="inner-stats">
     <h4>total words per user: </h4>
     {% for k, v in total_words.items()%}
-    <h5>{{k}}: {{"{:,.2f}".format(v)}}</h5>
+    <h5>{{k}}: {{"{:,.0f}".format(v)}}</h5>
     {% endfor %}
 </div>
 </div>

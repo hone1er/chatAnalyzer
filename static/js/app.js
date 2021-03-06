@@ -7,7 +7,9 @@ var data = JSON.parse(document.getElementById("traces").getAttribute("data"));
 var config = {responsive: true}
 var layout = { 
   title: 'Messages sent per user',
-  font: {size: 17}
+  font: {size: 17,
+  family: 'Kalam, cursive'
+  }
 };
 Plotly.newPlot('traces', data, layout, config);
 });

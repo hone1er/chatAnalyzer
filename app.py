@@ -177,7 +177,7 @@ def analyze_chat(file):
 def total_words_per_user(average_words_per_message, message_count):
     total_words = {}
     for user in average_words_per_message.keys():
-        total_words[user] = average_words_per_message[user] * message_count[user]
+        total_words[user] = round(average_words_per_message[user] * message_count[user])
     return total_words
 
 def message_length_averages(message_lengths_dict):
