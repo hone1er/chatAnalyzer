@@ -249,6 +249,20 @@ div.container {
 }
 .inner-upload {
 }
+.stats {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.inner-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (max-width: 768px) {
   .outer {
@@ -278,5 +292,11 @@ div.container {
   }
   .steps-container > div {
     width: 100%;
+  }
+  .stats {
+    flex-direction: column;
+  }
+  .inner-stats {
+    margin: 20px auto;
   }
 }

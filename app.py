@@ -68,6 +68,7 @@ def unzip_file(file):
 
 def message_count_to_trace(messages):
     traces = []
+    
     for key, value in messages.items():
         trace = {
             "x": [key],
@@ -105,14 +106,14 @@ def upload_file():
                 print(filename)
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
-            words, traces, average_words, total_words = get_users(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            words, traces, average_words, total_words = analyze_chat(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
             return render_template("home.html", words=words, traces=traces, average_words=average_words, total_words=total_words)
 
     return render_template("error.html")
 
 
-def get_users(file):
+def analyze_chat(file):
     # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
     # if user, add message to array, else add username with empty array
     chat = {}
@@ -133,6 +134,8 @@ def get_users(file):
         lines = f.readlines()[1:]
         # Go through each line in the chat and check if it is a new message
         for line in lines:
+            # some lines are not new messages or are blank so a search is done to find the timestamp and name to verify it is a new message
+            # and if the message is new it is added to the count
             name = re.search(expression, str(line))
             if name:
                 last_found_name = name
@@ -142,6 +145,8 @@ def get_users(file):
                     messages_count[name.group()] = 1
             else:
                 name = last_found_name
+                
+            # deconstruct each line to get a count of each word in the line for word counts, word totals, and averages
             if name and line:
                 try:
                     words = str(line).split(f" {name.group()}: ")[1].split(" ")
@@ -178,7 +183,7 @@ def total_words_per_user(average_words_per_message, message_count):
 def message_length_averages(message_lengths_dict):
     new_dict = {}
     for key, value in message_lengths_dict.items() :
-        new_dict[key] = sum(value)/len(value)
+        new_dict[key] = round(sum(value)/len(value), 2)
     return new_dict
 
 
@@ -193,4 +198,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000)

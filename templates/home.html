@@ -64,10 +64,19 @@
 <div class="container">
 <div data="{{traces}}" id="traces"></div>
 </div>
-<div>
-    <h4>average words per message: {{average_words}}</h4>
-    <h4>total words per user: {{total_words}}</h4>
-
+<div class="stats">
+    <div class="inner-stats">
+    <h4>average words per message: </h4>
+    {% for k, v in average_words.items()%}
+    <h5>{{k}}: {{"{:,.2f}".format(v)}}</h5>
+    {% endfor %}
+</div>
+<div class="inner-stats">
+    <h4>total words per user: </h4>
+    {% for k, v in total_words.items()%}
+    <h5>{{k}}: {{"{:,.2f}".format(v)}}</h5>
+    {% endfor %}
+</div>
 </div>
 </div>
 </div>
