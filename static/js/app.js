@@ -6,7 +6,7 @@ console.log(JSON.parse(document.getElementById("traces").getAttribute("data")));
 var data = JSON.parse(document.getElementById("traces").getAttribute("data"));
 var config = {responsive: true}
 var layout = { 
-  title: 'Messages sent per user',
+  title: 'messages sent per user',
   font: {size: 17,
   family: 'Kalam, cursive'
   }
