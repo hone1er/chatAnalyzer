@@ -3,13 +3,17 @@
     var trace = '{{ traces }}';
   </script>
 <div class="container steps-container">
-    <h1>Analyze your chat in 3 steps:</h1>
+    <div><img src="{{ url_for('static', filename =
+        'images/connected.jpg') }}" alt=""></div>
     <div class="steps">
+    <h1>Analyze your chat in 3 steps:</h1>
+    <div >
     <ol class="ordered-list">
         <li>export your WhatsApp chat log - without media</li>
         <li>upload the chat log here</li>
         <li>view chat analysis</li>
     </ol>
+</div>
 </div>
 </div>
 <div class="container upload-container">
@@ -28,6 +32,7 @@
         
         <div class="tables">
 
+        
     {% for key, value in words.items() %}
     <div class="outer-table">
     <h3>{{key}}</h3>
