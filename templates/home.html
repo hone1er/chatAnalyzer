@@ -61,9 +61,6 @@
     </div>
 {% endfor %}
 </div>
-<div class="container">
-<div data="{{traces}}" id="traces"></div>
-</div>
 <div class="stats">
     <div class="inner-stats">
     <h4>average words per message: </h4>
@@ -78,7 +75,16 @@
     {% endfor %}
 </div>
 </div>
+<div class="container">
+<div data="{{traces}}" id="traces"></div>
+</div>
+
 </div>
 </div>
+{% else %}
+<div class="waiting">
+<img src={{ url_for('static', filename =
+        'images/waiting.svg') }} alt="Card image cap">
+    </div>
 {% endif %}
 {% endblock %}

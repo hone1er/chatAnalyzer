@@ -1,5 +1,5 @@
 body {
-  font-family: "Kalam", cursive;
+  font-family: 'Nunito', sans-serif;
 }
 
 table.dataTable thead .sorting_asc,
@@ -290,8 +290,19 @@ div.container {
   justify-content: center;
   align-items: center;
 }
-
+.waiting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.waiting > img {
+  max-width: 90%;
+}
 @media (max-width: 768px) {
+  form {
+    font-size: small;
+  }
+  
   .dashboard > div {
     margin: 60px auto;
   }
@@ -314,7 +325,14 @@ div.container {
     width: inherit;
     margin-left: unset;
   }
-
+  .steps {
+    margin: auto;
+    position: relative;
+    top: -45px;
+  }
+  .steps > h1 {
+    margin-bottom: 25px;
+  }
   .steps-container {
     width: 100%;
     display: flex;
@@ -324,7 +342,7 @@ div.container {
     width: 100%;
   }
   .step-image {
-    clip-path: ellipse(85% 85% at 20% 20%);
+    clip-path: ellipse(85% 85% at 20% 15%);
   }
   .stats {
     flex-direction: column;

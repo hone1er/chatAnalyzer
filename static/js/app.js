@@ -8,7 +8,8 @@ var config = {responsive: true}
 var layout = { 
   title: 'messages sent per user',
   font: {size: 17,
-  family: 'Kalam, cursive'
+  family: 'Nunito, sans-serif'
+
   }
 };
 Plotly.newPlot('traces', data, layout, config);
