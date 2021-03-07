@@ -237,6 +237,13 @@ form > input {
   justify-content: center;
   margin: 50px auto;
 }
+
+.steps > h1 {
+  font-size: 4vw;
+  white-space: nowrap;
+  position: relative;
+  right: 45px;}
+
 .steps > div {
   display: flex;
   flex-direction: column;
@@ -256,7 +263,7 @@ form > input {
 .ordered-list {
   color: #f8f8f8;
   text-align: left;
-  font-size: 1.25rem;
+  font-size: 2.1vw;
 }
 
 div.container {
@@ -302,12 +309,15 @@ div.container {
   form {
     font-size: small;
   }
-  
+
   .dashboard > div {
     margin: 60px auto;
   }
   .outer {
     height: auto;
+  }
+  .ordered-list {
+    font-size: 1.25rem;
   }
   .hero-container {
     -webkit-mask: unset;
@@ -332,6 +342,9 @@ div.container {
   }
   .steps > h1 {
     margin-bottom: 25px;
+    position: unset;
+    white-space: unset;
+    font-size: 2.5rem;
   }
   .steps-container {
     width: 100%;
