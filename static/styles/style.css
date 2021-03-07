@@ -208,17 +208,88 @@ form > input {
 
 .steps-container {
   display: flex;
+  flex-direction: row;
   padding: 0px !important;
   margin: 0;
   width: 100%;
   min-width: 100%;
-  background: rgb(59, 88, 144);
-  background: linear-gradient(
-    90deg,
-    rgba(59, 88, 144, 1) 0%,
-    rgba(0, 61, 96, 1) 100%
-  );
+  background: rgb(10,10,10);
   color: #f8f8f8;
+  
+}
+
+
+ul {
+  list-style: none;
+}
+li {
+  border-top: 2px dashed;
+  border-color: blue !important;
+  margin:0; padding: 30px;
+  counter-increment: section;
+  position: relative;
+}
+
+
+
+li:nth-child(even):before {
+  content: counter(section);
+  left: 100%; 
+  margin-left: -20px;
+  position: absolute;
+  border-radius: 50%;
+  padding: 10px;
+  height: 20px;
+  width: 20px;
+  background-color: blue;
+  text-align:center;
+  color: white;
+  font-size: 110%;
+}
+
+li:nth-child(odd):before {
+  content: counter(section);
+  right: 100%; 
+  margin-right: -20px;
+  position: absolute;
+  border-radius: 50%;
+  padding: 10px;
+  height: 20px;
+  width: 20px;
+  background-color: blue;
+  text-align:center;
+  color: white;
+  font-size: 110%;
+}
+
+
+
+li:nth-child(even) {
+  border-right: 2px dashed;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  margin-left: 30px; 
+  padding-right: 115px;
+}
+
+li:nth-child(odd) {
+  border-left: 2px dashed;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin-right: 30px; 
+  padding-right: 0;
+  padding-left: 115px;
+}
+
+li:first-child {
+  border-top: 0;
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+}
+
+li:last-child {
+  border-bottom-left-radius:0;
+  border-bottom-right-radius:0;
 }
 
 .steps-container > div {
@@ -232,6 +303,8 @@ form > input {
   height: 100%;
 }
 .steps {
+  position: relative;
+  right: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -270,12 +343,8 @@ div.container {
   width: 80%;
 }
 .upload-container {
-  background: rgb(68, 68, 68);
-  background: linear-gradient(
-    90deg,
-    rgba(68, 68, 68, 1) 0%,
-    rgba(51, 51, 51, 1) 100%
-  );
+  background: rgb(10,10,10);
+
   color: #f8f8f8;
   width: 100%;
   min-width: 100%;
@@ -339,6 +408,8 @@ div.container {
     margin: auto;
     position: relative;
     top: -45px;
+    right: 0;
+
   }
   .steps > h1 {
     margin-bottom: 25px;
