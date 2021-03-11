@@ -222,7 +222,7 @@ form > input {
 ul {
   list-style: none;
 }
-li {
+.ordered-list > li {
   border-top: 2px dashed;
   border-color: blue !important;
   margin:0; padding: 30px;
@@ -232,7 +232,7 @@ li {
 
 
 
-li:nth-child(even):before {
+.ordered-list > li:nth-child(even):before {
   content: counter(section);
   left: 100%; 
   margin-left: -20px;
@@ -247,7 +247,7 @@ li:nth-child(even):before {
   font-size: 110%;
 }
 
-li:nth-child(odd):before {
+.ordered-list > li:nth-child(odd):before {
   content: counter(section);
   right: 100%; 
   margin-right: -20px;
@@ -264,7 +264,7 @@ li:nth-child(odd):before {
 
 
 
-li:nth-child(even) {
+.ordered-list > li:nth-child(even) {
   border-right: 2px dashed;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -272,7 +272,7 @@ li:nth-child(even) {
   padding-right: 115px;
 }
 
-li:nth-child(odd) {
+.ordered-list > li:nth-child(odd) {
   border-left: 2px dashed;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -281,13 +281,13 @@ li:nth-child(odd) {
   padding-left: 115px;
 }
 
-li:first-child {
+.ordered-list > li:first-child {
   border-top: 0;
   border-top-left-radius:0;
   border-top-right-radius:0;
 }
 
-li:last-child {
+.ordered-list > li:last-child {
   border-bottom-left-radius:0;
   border-bottom-right-radius:0;
 }
