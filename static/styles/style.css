@@ -2,6 +2,13 @@ body {
   font-family: 'Nunito', sans-serif;
 }
 
+.bar {
+  fill: slategray;
+}
+.bar:hover {
+  fill: steelblue
+}
+
 table.dataTable thead .sorting_asc,
 .sorting_desc,
 .sorting {

@@ -71,8 +71,8 @@ def message_count_to_trace(messages):
     
     for key, value in messages.items():
         trace = {
-            "x": [key],
-            "y": [value],
+            "x": key,
+            "y": value,
             "name": key,
             "type": 'bar'
             }
@@ -112,14 +112,7 @@ def upload_file():
 
     return render_template("error.html")
 
-
-def analyze_chat(file):
-    # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
-    # if user, add message to array, else add username with empty array
-    chat = {}
-    messages_count = {}
-    message_lengths = {}
-    last_found_name = None
+def internationalization(file):
     expression = None
     us_expression = r"(?<=\s[A-Z][A-Z]]\s)[^:\]]+"
     international_expression = r"(?<=\d:\d\d\s[-]\s)[^:\]]+"
@@ -130,6 +123,16 @@ def analyze_chat(file):
                 expression = us_expression
             else:
                 expression = international_expression
+    return expression
+
+def analyze_chat(file):
+    # {user: {messages: 10, broken: 3, into: 9, words: 13, with: 4, count: 2}
+    # if user, add message to array, else add username with empty array
+    chat = {}
+    messages_count = {}
+    message_lengths = {}
+    last_found_name = None
+    expression = internationalization(file)
     with open(file, encoding="utf8") as f:
         lines = f.readlines()[1:]
         # Go through each line in the chat and check if it is a new message
