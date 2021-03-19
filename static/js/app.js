@@ -6,8 +6,8 @@ $(document).ready(function () {
 
 
 
-  var width = 600;
-  var height = 300;
+  var width = 970;
+  var height = 500;
   var padding = 30;
   var margin = 135;
   var adj = 20;
@@ -15,7 +15,7 @@ $(document).ready(function () {
   var svg = d3.select("#viz").append("svg")
     .attr("preserveAspectRatio", "xMinYMin meet")
     .attr("viewBox", "-" + adj + " -" + adj + " " + (width + adj) + " " + (height + adj))
-    .style("margin", margin)
+    .style("margin", "auto")
     .classed("svg-content", true);
 
   //-----------------------DATA PREPARATION------------------------//
@@ -30,34 +30,47 @@ $(document).ready(function () {
     .enter()
     .append("rect")
     .attr("x", (d, i) => { return i * width / dataset.length + padding })
-    .attr("y", (d) => { return height - yScale(d.y) })
+    .attr("y", (d) => { return height - yScale(d.y) - padding })
     .attr("height", (d) => { return yScale(d.y) })
     .attr("width", width / dataset.length - (padding + margin))
     .attr("class", "bar")
     .append("title")
-    .text((d) => { return d.y })
+    .text((d) => { return "name: " + d.x + "\n" + "messages sent: " + d.y })
 
 
   svg.selectAll("text")
     .data(dataset)
     .enter()
     .append("text")
-    .text((d) => { return d.y })
-    .attr("x", (d, i) => { return i * width / dataset.length + (width / dataset.length - (padding + margin)) / 2 + 10 })
-    .attr("y", (d) => { return height - yScale(d.y) - 25 })
-    .style("font-size", "14px")
-    .append("text")
-    .text((d) => { return d.x })
-    .attr("x", (d, i) => { return i * width / dataset.length + (width / dataset.length - (padding + margin)) / 2 + 10 })
-    .attr("y", (d) => { return yScale(d.y) - 15 })
+    .text((d) => { return d.x + ": \n" + d.y})
+    .attr("x", (d, i) => { return i * width / dataset.length + (width / dataset.length - (padding + margin)) / 2 - 15})
+    .attr("y", (d) => { return height  })
+    .style("font-size", "16px")
+   
 
   const yAxis = d3.scaleLinear()
     .domain([0, d3.max(dataset, (d) => { return d.y })])
     .range([height - padding, 0])
+
+
   svg
     .append("g")
-    .attr("transform", "translate(25,29)")      // This controls the vertical position of the Axis
+    .attr("transform", "translate(25, 0)")      // This controls the vertical position of the Axis
     .call(d3.axisLeft(yAxis));
+
+
+    var xScale = d3.scaleLinear()
+    .domain([])
+    .range([25, 900]);
+
+var xAxis = d3.axisBottom(xScale);
+
+
+svg.append("g")
+    .attr("transform", "translate(0," + (height - padding) + ")")
+    .call(xAxis);
+
+
 
 
 
