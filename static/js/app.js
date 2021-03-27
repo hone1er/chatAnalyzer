@@ -1,29 +1,16 @@
 $(document).ready(function () {
-
     createBars()
     $("table").DataTable({
       pagingType: "simple",
     });
-
 });
 
-// var config = { responsive: true }
-// var layout = {
-//   title: 'messages sent per user',
-//   font: {
-//     size: 17,
-//     family: 'Nunito, sans-serif'
 
-//   }
-// };
-// Plotly.newPlot('traces', data, layout, config);
-// var data = JSON.parse(document.getElementById("traces").getAttribute("data"));
 
 
 function createBars() {
   setTimeout(() => {
     var data = JSON.parse(document.getElementById("traces").getAttribute("data"));
-    console.log(data)
     var width = 970;
     var height = 350;
     var padding = 30;
@@ -129,6 +116,8 @@ function createBars() {
       .attr("transform", "translate(0," + (height - padding) + ")")
       .call(xAxis);
 
+
+    // display dashboard all at once to impove user experience
     d3.select(".dashboard")
       .style("display", "block")
   }, 0);
