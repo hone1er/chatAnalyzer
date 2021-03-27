@@ -27,9 +27,22 @@
 </div>
 {% if words %}
 <div class="">
-    <div class="dashboard">
-        <div id="viz"></div>
+    <div class="dashboard animated fadeIn">
         
+        <div class="stats">
+            <div class="inner-stats">
+            <h4>average words per message: </h4>
+            {% for k, v in average_words.items()%}
+            <h5>{{k}}: {{"{:,.2f}".format(v)}}</h5>
+            {% endfor %}
+        </div>
+        <div class="inner-stats">
+            <h4>total words per user: </h4>
+            {% for k, v in total_words.items()%}
+            <h5>{{k}}: {{"{:,.0f}".format(v)}}</h5>
+            {% endfor %}
+        </div>
+        </div>
         <div class="tables">
 
         
@@ -61,20 +74,8 @@
     </div>
 {% endfor %}
 </div>
-<div class="stats">
-    <div class="inner-stats">
-    <h4>average words per message: </h4>
-    {% for k, v in average_words.items()%}
-    <h5>{{k}}: {{"{:,.2f}".format(v)}}</h5>
-    {% endfor %}
-</div>
-<div class="inner-stats">
-    <h4>total words per user: </h4>
-    {% for k, v in total_words.items()%}
-    <h5>{{k}}: {{"{:,.0f}".format(v)}}</h5>
-    {% endfor %}
-</div>
-</div>
+
+<div id="viz"></div>
 <div class="container">
 <div data="{{traces}}" id="traces"></div>
 </div>

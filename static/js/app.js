@@ -129,8 +129,8 @@ function createBars() {
       .attr("transform", "translate(0," + (height - padding) + ")")
       .call(xAxis);
 
-    d3.select(".tables")
-      .style("display", "flex")
+    d3.select(".dashboard")
+      .style("display", "block")
   }, 0);
 
 };
