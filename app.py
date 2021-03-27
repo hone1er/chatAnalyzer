@@ -36,7 +36,6 @@ remove_words = {
     "jajaj": True,
     "haha": True,
     "hahaha": True,
-    "lore": True,
     "im": True,
     "pm": True,
     "multimedia": True,
@@ -107,7 +106,6 @@ def upload_file():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
             words, traces, average_words, total_words = analyze_chat(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-
             return render_template("home.html", words=words, traces=traces, average_words=average_words, total_words=total_words)
 
     return render_template("error.html")
@@ -133,6 +131,8 @@ def analyze_chat(file):
     message_lengths = {}
     last_found_name = None
     expression = internationalization(file)
+
+
     with open(file, encoding="utf8") as f:
         lines = f.readlines()[1:]
         # Go through each line in the chat and check if it is a new message
@@ -173,8 +173,11 @@ def analyze_chat(file):
                                 chat[name.group(0)] = {new_word: 1}
                 except IndexError:
                     pass
+
+
     average_words_per_message = message_length_averages(message_lengths)
     total_words = total_words_per_user(average_words_per_message, messages_count)
+
     return chat, message_count_to_trace(messages_count), average_words_per_message, total_words
 
 def total_words_per_user(average_words_per_message, message_count):
